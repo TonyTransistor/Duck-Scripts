@@ -1,4 +1,6 @@
-DELAY 5000
+REM Title: BlueScreener
+REM Note: Cheap and easy way to force a kernel panic (BSoD) in Windows
+DELAY 4000
 CONTROL ESCAPE
 DELAY 200
 STRING powershell
