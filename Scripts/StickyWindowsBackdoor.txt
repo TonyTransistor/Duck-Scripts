@@ -1,4 +1,3 @@
-REM Title: Bens WinBackdoor
 REM Note: Adjust delays to match host CPU speed
 REM To Undo: REG DELETE "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
 REM Desc: Adds a registry entry to enable the classic sticky keys SYSTEM level cmd backdoor
